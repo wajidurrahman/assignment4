@@ -1,129 +1,81 @@
-
-document.getElementById("plusButtonF").addEventListener("click")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const fastClassCost = 150;
-// const economyCost = 100;
-
-// const fastClassPBtn = document.getElementById('plusButtonF').addEventListener('click', function () {
-//     inputTicketValue('fastClass-input', true)
-// })
-// const economyPBtn = document.getElementById('plusButtonE').addEventListener('click', function () {
-//     inputTicketValue('economy-input', true)
-// })
-// const fastClassMBtn = document.getElementById('minusButtonF').addEventListener('click', function () {
-//     inputTicketValue('fastClass-input', false)
-// })
-// const economyMBtn = document.getElementById('minusButtonE').addEventListener('click', function () {
-//     inputTicketValue('economy-input', false)
-// })
-
-// function inputTicketValue(plus, minus) {
-//     const plusValue = document.getElementById(plus).value;
-//     const inputPlusValue = parseInt(plusValue);
-//     let ticketValue = inputPlusValue;
-//     if (minus == true) {
-//         ticketValue = inputPlusValue + 1;
-//     } else if (minus == false && ticketValue > 0) {
-//         ticketValue = inputPlusValue - 1;
-//         document.getElementById(plus).value = ticketValue;
-//         totalTicketBooking()
-//     }
-// }
-
-
-// function totalTicketBooking() {
-//     const fastClassTicketPrise = document.getElementById('fastClass-input').value;
-//     const economyTicketPrise = document.getElementById('economy-input')
-//     const subTotalPrise = (fastClassTicketPrise * fastClassCost) + (economyTicketPrise * economyCost);
-//     document.getElementById('subtotal').innerText = subTotalPrise;
-//     const texFree = subTotalPrise * .1;
-//     document.getElementById('free').innerText = texFree;
-//     totalMembers = subTotalPrise + texFree;
-//     document.getElementById('total').innerText = totalMembers;
-// }
-
-//  function flightBooking()
-
-// document.getElementById('plusButtonF').addEventListener('click',function(){
-//     document.getElementById('subTotal').innerText = ''
-// })
-// document.getElementById('plusButtonE').addEventListener('click',function(){
-//     document.getElementById('subTotal').innerText = ''
-// })
-// document.getElementById('minusButtonF').addEventListener('click',function(){
-//     document.getElementById('subTotal').innerText = ''
-// })
-// document.getElementById('minusButtonE').addEventListener('click',function(){
-//     document.getElementById('subTotal').innerText = ''
-// })
-
-// function bookingTicket(fast,economy){
-//     const ticketPrise = 0;
-//     for (let i = 0; i < arguments.length; i++) {
-//         const inputTicket  = arguments[i];
-//         let  EcoInputTicket = in
-
-//     }
-
-// }
-
-
-// function totalTicketBooking(booking, members) {
-//     const emptySeat = getInputValue(booking);
-//     let newTicketSale = emptySeat;
-//     if (members == true) {
-//         newTicketSale = emptySeat + 1;
-//     }
-//     if (members == false && emptySeat > 0) {
-//         newTicketSale = emptySeat - 1;
-//     }
-//     document.getElementById(booking + '-input').value = newTicketSale;
-//     let totalTicket = 0;
-//     if (booking == 'fastClass') {
-//         totalTicket = newTicketSale * 150;
-//     }
-//     if (booking == 'economy') {
-//         totalTicket = newTicketSale * 100;
-//     }
-//     document.getElementById(ticket + '-prise').innerText = '$' + totalTicket;
-//     flightBooking()
-// }
-
-// function flightBooking(){
-//     const fastClassTicketPrise = getInputValue('fastClass');
-//     const economyTicketPrise = getInputValue('economy');
-//     const subTotalPrise = fastClassTicketPrise * 150 + economyTicketPrise * 100;
-//     document.getElementById('subtotal').innerText = '$' + subTotalPrise;
-//     const ticketVat = Math.round(subTotalPrise * 50);
-//     document.getElementById('free').innerText = '$' + ticketVat;
-//     const totalMembers = subTotalPrise + ticketVat;
-//     document.getElementById('totalBooking').innerText = '$' +totalMembers;
-
-// } 
-// function getInputValue(booking){
-//     const newBooking = document.getElementById(booking + '-input');
-//     const emptySeat = parseInt(newBooking.value);
-//     return emptySeat;
-// }
+var total;
+var subtotal;
+var vat;
+var economyClassSets;
+var firstClassSets;
+// FirstClass Sets coundown Claculation[plus]
+const plusForFirstClass = document.getElementById('plus');
+plusForFirstClass.addEventListener('click', function() {
+    productCostHandle('firstClassInput', true);
+    totalCostCalculation();
+});
+// FirstClass Sets coundown Claculation[minus]
+const minusForFirstClass = document.getElementById('minus');
+minusForFirstClass.addEventListener('click', function() {
+    productCostHandle('firstClassInput', false);
+    totalCostCalculation();
+});
+// EconomyClass Sets coundown Claculation[plus]
+const plusEconomyClass = document.getElementById('plusOne');
+plusEconomyClass.addEventListener('click', function() {
+    productCostHandle('economyClassInput', true);
+    totalCostCalculation();
+});
+// EconomyClass Sets coundown Claculation[minus]
+const minusEconomyClass = document.getElementById('minusOne');
+minusEconomyClass.addEventListener('click', function() {
+    productCostHandle('economyClassInput', false);
+    totalCostCalculation();
+});
+// Total Costing for FirstClass and EconomyClass Sets 
+function totalCostCalculation() {
+    let firstClassInput = document.getElementById('firstClassInput').value;
+    firstClassSets = parseInt(firstClassInput);
+    let firstCost = 150 * firstClassSets;
+    let economyClassInput = document.getElementById('economyClassInput').value;
+    economyClassSets = parseInt(economyClassInput);
+    let economyCost = 100 * economyClassSets;
+    subtotal = document.getElementById('subtotal').innerHTML;
+    subtotal = firstCost + economyCost;
+    document.getElementById('subtotal').innerHTML = subtotal;
+    vat = subtotal * .1;
+    document.getElementById('vat').innerHTML = vat;
+    total = subtotal + vat;
+    document.getElementById('total').innerHTML = total;
+}
+// Function for Sets incrise or decrise 
+function productCostHandle(id, isIncrease) {
+    let productQuantity = document.getElementById(id).value;
+    let conformedSets = parseInt(productQuantity);
+    if (isIncrease == true) {
+        conformedSets++;
+    }
+    if (isIncrease == false) {
+        if (conformedSets >= 1) {
+            conformedSets--;
+        }
+    }
+    document.getElementById(id).value = conformedSets;
+};
+// confirmation Booking
+var conformText = document.getElementById('successText');
+const bookingConfirmation = document.getElementById('bookNow');
+bookingConfirmation.addEventListener('click', function() {
+    let mainSection = document.getElementById('mainSection');
+    mainSection.style.display = 'none';
+    let confirmation = document.getElementById('confirmation');
+    confirmation.style.display = 'block';
+    if (total >= 10) {
+        document.getElementById('firstClassPassenger').innerHTML = firstClassSets;
+        document.getElementById('economyClassPassenger').innerHTML = economyClassSets;
+        document.getElementById('subCost').innerHTML = subtotal;
+        document.getElementById('vatCost').innerHTML = vat;
+        document.getElementById('totalCost').innerHTML = total;
+        conformText.style.color = 'green';
+    } else {
+        const ticket = "Your tickets are not confirmed,Please Select a sets First.";
+        conformText.innerHTML = ticket;
+        conformText.style.color = 'red';
+        conformText.style.fontSize = '21px';
+    }
+});
